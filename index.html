@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criador de Posts — Ana Carla Mota</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:#070f1f;color:#f5f0e8;min-height:100vh}
+header{padding:18px 20px;border-bottom:1px solid rgba(201,168,76,0.2);display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Playfair Display',serif;font-size:18px}
+.logo span{color:#c9a84c}
+.sub{font-size:10px;color:#7a8099;letter-spacing:1px;text-transform:uppercase}
+.main{max-width:680px;margin:0 auto;padding:24px 16px}
+h1{font-family:'Playfair Display',serif;font-size:24px;text-align:center;margin-bottom:8px}
+h1 span{color:#c9a84c}
+.desc{font-size:13px;color:#7a8099;text-align:center;margin-bottom:24px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.pcard{border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:14px;cursor:pointer;text-align:center;background:rgba(255,255,255,0.02)}
+.pcard.on{background:rgba(201,168,76,0.1);border-color:#c9a84c}
+.picon{font-size:24px;margin-bottom:6px}
+.pname{font-size:13px;font-weight:600}
+.pdesc{font-size:11px;color:#7a8099;margin-top:2px}
+label{font-size:11px;color:#7a8099;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:5px}
+select{width:100%;background:#0d1a30;border:1px solid rgba(201,168,76,0.2);border-radius:10px;color:#f5f0e8;font-size:13px;padding:10px 12px;outline:none;margin-bottom:16px}
+.btn{width:100%;background:linear-gradient(135deg,#c9a84c,#e8c96a);color:#070f1f;font-size:15px;font-weight:600;padding:15px;border:none;border-radius:12px;cursor:pointer;margin-bottom:20px}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.card{background:#0d1a30;border:1px solid rgba(201,168,76,0.2);border-radius:12px;margin-bottom:14px;overflow:hidden}
+.card-head{padding:10px 14px;border-bottom:1px solid rgba(201,168,76,0.15);display:flex;justify-content:space-between;align-items:center}
+.card-tipo{font-size:11px;font-weight:600;color:#c9a84c;text-transform:uppercase;letter-spacing:0.5px}
+.card-plat{font-size:11px;color:#7a8099;background:rgba(255,255,255,0.04);padding:3px 8px;border-radius:20px}
+.card-body{padding:14px}
+.slabel{font-size:10px;color:#7a8099;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.stext{font-size:13px;line-height:1.7;white-space:pre-wrap;margin-bottom:12px}
+.stags{font-size:12px;color:#c9a84c;opacity:0.7;margin-bottom:12px;line-height:1.8}
+.arte{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:8px;padding:12px}
+.arte-title{font-size:11px;color:#c9a84c;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.arte-item{font-size:12px;color:#d0ccc4;padding:3px 0;line-height:1.6}
+.arte-item b{color:#c9a84c}
+.card-foot{padding:10px 14px;border-top:1px solid rgba(201,168,76,0.1);display:flex;gap:8px}
+.cbtn{flex:1;background:none;border:1px solid rgba(201,168,76,0.2);color:#7a8099;font-size:12px;padding:7px;border-radius:8px;cursor:pointer}
+.cbtn:hover{border-color:#c9a84c;color:#c9a84c}
+.cbtn.ok{border-color:#4caf82;color:#4caf82}
+.empty{text-align:center;padding:40px;color:#7a8099}
+.loading{text-align:center;padding:40px;color:#7a8099}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+.dot{width:7px;height:7px;background:#c9a84c;border-radius:50%;animation:b 1.2s infinite}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+@keyframes b{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-7px)}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="logo">Criador de <span>Posts</span></div>
+    <div class="sub">Dra. Ana Carla Mota</div>
+  </div>
+  <div style="font-size:11px;color:#7a8099">IA Especializada</div>
+</header>
+
+<div class="main">
+  <h1>Posts que <span>vendem</span><br>criados pela IA</h1>
+  <p class="desc">Copy profissional + guia de arte para o Canva</p>
+
+  <div class="grid2">
+    <div class="pcard on" id="pk" onclick="selProd('kit')">
+      <div class="picon">🔍</div>
+      <div class="pname">Raio-X do Endividamento</div>
+      <div class="pdesc">Kit R$37 — pessoas físicas</div>
+    </div>
+    <div class="pcard" id="pm" onclick="selProd('mentoria')">
+      <div class="picon">⚖️</div>
+      <div class="pname">Mentoria Metamorfose</div>
+      <div class="pdesc">R$1.997+ — advogados</div>
+    </div>
+  </div>
+
+  <label>Tipo de post</label>
+  <select id="tipo">
+    <option value="semana">📅 Semana completa (7 posts)</option>
+    <option value="educativo">📚 Educativo / valor</option>
+    <option value="vendas">💰 Direto para vendas</option>
+    <option value="objecao">🛡️ Quebra de objeção</option>
+    <option value="prova">⭐ Prova social / autoridade</option>
+    <option value="stories">📱 Stories (5 slides)</option>
+  </select>
+
+  <label>Plataforma</label>
+  <select id="plat">
+    <option value="instagram">📸 Instagram</option>
+    <option value="whatsapp">💬 WhatsApp</option>
+    <option value="ambos">🌐 Instagram + WhatsApp</option>
+    <option value="tiktok">🎵 TikTok</option>
+    <option value="todos">🚀 Todas as plataformas</option>
+  </select>
+
+  <button class="btn" onclick="gerar()" id="btn">✨ Criar posts agora</button>
+
+  <div id="results">
+    <div class="empty">✍️<br><br>Selecione o produto e clique em criar posts</div>
+  </div>
+</div>
+
+<script>
+var prod = 'kit';
+var posts = [];
+
+var info = {
+  kit: {
+    name: 'Kit Raio-X do Endividamento',
+    price: 'R$37',
+    pub: 'pessoas fisicas endividadas',
+    link: 'https://pay.hotmart.com/I105978519D',
+    zap: '(71) 98194-8960',
+    insta: '@raio.x.endividamento',
+    sobre: 'Kit com 3 ferramentas: Diagnostico de Endividamento (questionario de 3 minutos que mostra o grau de endividamento), App Controle Total (organiza receitas e despesas), Guia de Direitos (explica a Lei 14.181/2021). Mais ebook completo e consultoria juridica gratuita de 20 minutos. NAO analisa contratos nem substitui advogado.',
+    criadora: 'Dra. Ana Carla Mota, advogada especialista em superendividamento'
+  },
+  mentoria: {
+    name: 'Mentoria Metamorfose Lucrativa',
+    price: 'R$1.997',
+    pub: 'advogados que querem atuar no extrajudicial imobiliario',
+    link: 'https://wa.me/5571981948960',
+    zap: '(71) 98194-8960',
+    insta: '@advanacarlamota',
+    sobre: '12 semanas: 8 encontros individuais semanais + 4 semanas de acompanhamento. Estruturacao de 2 servicos extrajudiciais completos (averbacao de construcao, abertura de matricula, registro de partilha, instituicao de condominio). 100% pratico baseado na experiencia real da mentora.',
+    criadora: 'Dra. Ana Carla Mota, advogada especialista em Direito Imobiliario Extrajudicial'
+  }
+};
+
+function selProd(p) {
+  prod = p;
+  document.getElementById('pk').className = 'pcard' + (p=='kit'?' on':'');
+  document.getElementById('pm').className = 'pcard' + (p=='mentoria'?' on':'');
+}
+
+async function gerar() {
+  var tipo = document.getElementById('tipo').value;
+  var plat = document.getElementById('plat').value;
+  var btn = document.getElementById('btn');
+  var res = document.getElementById('results');
+  var p = info[prod];
+
+  btn.disabled = true;
+  btn.textContent = 'Criando...';
+  res.innerHTML = '<div class="loading">Criando posts...<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>';
+
+  var tipos = {semana:'7 posts variados (um por dia da semana)',educativo:'3 posts educativos com valor real',vendas:'3 posts de vendas com CTA direto',objecao:'3 posts quebrando objecoes',prova:'3 posts de autoridade e prova social',stories:'5 slides de stories em sequencia'};
+  var plats = {instagram:'Instagram feed',whatsapp:'WhatsApp',ambos:'Instagram e WhatsApp (versao para cada)',tiktok:'TikTok (roteiro de video curto)',todos:'Instagram, WhatsApp e TikTok'};
+
+  var prompt = 'Voce e copywriter especialista em produtos juridicos no Brasil.\n\n';
+  prompt += 'PRODUTO: ' + p.name + '\n';
+  prompt += 'PRECO: ' + p.price + '\n';
+  prompt += 'PUBLICO: ' + p.pub + '\n';
+  prompt += 'O QUE E: ' + p.sobre + '\n';
+  prompt += 'CRIADORA: ' + p.criadora + '\n';
+  prompt += 'LINK: ' + p.link + '\n';
+  prompt += 'WHATSAPP: ' + p.zap + '\n\n';
+  prompt += 'CRIE: ' + tipos[tipo] + ' para ' + plats[plat] + '\n\n';
+  prompt += 'REGRAS:\n- Copy em portugues brasileiro natural e direto\n- Nao invente funcoes que o produto nao tem\n- Gancho forte na primeira linha\n- CTA claro em cada post\n\n';
+  prompt += 'USE EXATAMENTE ESTE FORMATO PARA CADA POST:\n';
+  prompt += '[POST]\n';
+  prompt += 'TIPO: (tipo do post)\n';
+  prompt += 'PLATAFORMA: (plataforma)\n';
+  prompt += 'COPY:\n(texto completo)\n';
+  prompt += 'HASHTAGS: (hashtags)\n';
+  prompt += 'ARTE:\n';
+  prompt += 'Tamanho: (dimensoes em px)\n';
+  prompt += 'Fundo: (cor ou gradiente)\n';
+  prompt += 'Titulo da arte: (texto principal em destaque)\n';
+  prompt += 'Subtitulo: (texto menor)\n';
+  prompt += 'Template Canva: (nome de template para buscar)\n';
+  prompt += '[/POST]';
+
+  try {
+    var r = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{role:'user',content:prompt}]
+      })
+    });
+    var d = await r.json();
+    var text = d.content[0].text;
+    posts = parseP(text);
+    renderP(posts);
+  } catch(e) {
+    res.innerHTML = '<div class="empty">Erro ao gerar. Tente novamente.</div>';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Criar posts agora';
+}
+
+function parseP(text) {
+  var result = [];
+  var blocks = text.split('[POST]').filter(function(b){ return b.indexOf('COPY:') >= 0; });
+
+  blocks.forEach(function(block, i) {
+    var lines = block.split('\n');
+    var tipo='', plat='', copy='', tags='', arte='';
+    var copyIdx=-1, tagsIdx=-1, arteIdx=-1, fimIdx=-1;
+
+    for(var j=0; j<lines.length; j++){
+      var l = lines[j].trim();
+      if(l.startsWith('TIPO:')) tipo = l.replace('TIPO:','').trim();
+      else if(l.startsWith('PLATAFORMA:')) plat = l.replace('PLATAFORMA:','').trim();
+      else if(l === 'COPY:') copyIdx = j;
+      else if(l.startsWith('HASHTAGS:')){ tagsIdx = j; tags = l.replace('HASHTAGS:','').trim(); }
+      else if(l === 'ARTE:') arteIdx = j;
+      else if(l.indexOf('[/POST]') >= 0) fimIdx = j;
+    }
+
+    if(copyIdx >= 0){
+      var ce = tagsIdx > copyIdx ? tagsIdx : (arteIdx > copyIdx ? arteIdx : (fimIdx > copyIdx ? fimIdx : lines.length));
+      copy = lines.slice(copyIdx+1, ce).join('\n').trim();
+    }
+
+    if(arteIdx >= 0){
+      var ae = fimIdx > arteIdx ? fimIdx : lines.length;
+      arte = lines.slice(arteIdx+1, ae).filter(function(l){ return l.indexOf('[/POST]') < 0; }).join('\n').trim();
+    }
+
+    if(copy) result.push({tipo:tipo||'Post '+(i+1), plat:plat, copy:copy, tags:tags, arte:arte});
+  });
+
+  if(!result.length) result.push({tipo:'Posts gerados', plat:'', copy:text, tags:'', arte:''});
+  return result;
+}
+
+function renderP(ps) {
+  var res = document.getElementById('results');
+  var html = '';
+  ps.forEach(function(p, i){
+    html += '<div class="card">';
+    html += '<div class="card-head"><div class="card-tipo">'+p.tipo+'</div>'+(p.plat?'<div class="card-plat">'+p.plat+'</div>':'')+'</div>';
+    html += '<div class="card-body">';
+    html += '<div class="slabel">Copy</div><div class="stext" id="c'+i+'">'+p.copy+'</div>';
+    if(p.tags) html += '<div class="stags">'+p.tags+'</div>';
+    if(p.arte){
+      var arteLines = p.arte.split('\n').filter(function(l){ return l.trim(); });
+      html += '<div class="arte"><div class="arte-title">🎨 Guia de Arte — Canva</div>';
+      arteLines.forEach(function(l){
+        var parts = l.split(':');
+        if(parts.length >= 2){
+          var key = parts[0].trim();
+          var val = parts.slice(1).join(':').trim();
+          html += '<div class="arte-item"><b>'+key+':</b> '+val+'</div>';
+        }
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+    html += '<div class="card-foot">';
+    html += '<button class="cbtn" onclick="cp('+i+',this)">📋 Copiar post</button>';
+    html += '<button class="cbtn" onclick="ct('+i+',this)">📋 Copiar tudo</button>';
+    html += '</div></div>';
+  });
+  res.innerHTML = html;
+}
+
+function cp(i, btn){
+  navigator.clipboard.writeText(document.getElementById('c'+i).innerText).then(function(){
+    btn.textContent='✅ Copiado!'; btn.className='cbtn ok';
+    setTimeout(function(){ btn.textContent='📋 Copiar post'; btn.className='cbtn'; }, 2000);
+  });
+}
+function ct(i, btn){
+  var p = posts[i];
+  navigator.clipboard.writeText(p.copy+(p.tags?'\n\n'+p.tags:'')).then(function(){
+    btn.textContent='✅ Copiado!'; btn.className='cbtn ok';
+    setTimeout(function(){ btn.textContent='📋 Copiar tudo'; btn.className='cbtn'; }, 2000);
+  });
+}
+</script>
+</body>
+</html>
